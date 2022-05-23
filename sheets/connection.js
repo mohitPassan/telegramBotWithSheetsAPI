@@ -2,9 +2,9 @@ const { google } = require('googleapis');
 const keys = require('../keys.json');
 
 const client = new google.auth.JWT(
-    keys.client_email,
+    process.env.CLIENT_EMAIL,
     null,
-    keys.private_key,
+    process.env.PRIVATE_KEY,
     ['https://www.googleapis.com/auth/spreadsheets']
 );
 
@@ -13,7 +13,7 @@ client.authorize((err, tokens) => {
         console.log(err);
         return;
     }
-    
+
     console.log('Connected to sheets');
 });
 
