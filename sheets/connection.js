@@ -2,9 +2,9 @@ const { google } = require('googleapis');
 const keys = require('../keys.json');
 
 const client = new google.auth.JWT(
-    process.env.CLIENT_EMAIL,
+    keys.client_email,
     null,
-    process.env.PRIVATE_KEY,
+    keys.private_key,
     ['https://www.googleapis.com/auth/spreadsheets']
 );
 
