@@ -1,5 +1,8 @@
 const { google } = require('googleapis');
-const keys = require('../api/keys.json');
+
+const keysCode = process.env.KEYS;
+const keysString = Buffer.from(keysCode, 'base64').toString('utf8');
+const keys = JSON.parse(keysString);
 
 const client = new google.auth.JWT(
     keys.client_email,

@@ -2,11 +2,12 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 
+dotenv.config();
+
 const { connectToSheets } = require('../sheets/connection');
 const { sendMessage } = require('../telegram/sendMessage');
 const { addExpense } = require('../sheets/addExpense');
 
-dotenv.config();
 
 app.use(express.json());
 
