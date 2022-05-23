@@ -1,7 +1,0 @@
-{
-    "functions": {
-        "api/app.js": {
-            "includeFiles": "keys.json"
-        }
-    }
-}
