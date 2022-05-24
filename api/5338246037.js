@@ -1,5 +1,5 @@
-const express = require('express');
-const app = express();
+// const express = require('express');
+// const app = express();
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -8,7 +8,7 @@ const { connectToSheets } = require('../sheets/connection');
 const { sendMessage } = require('../telegram/sendMessage');
 const { addExpense } = require('../sheets/addExpense');
 
-app.use(express.json());
+// app.use(express.json());
 
 const gs = connectToSheets();
 
