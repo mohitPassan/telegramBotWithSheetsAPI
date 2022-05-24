@@ -1,18 +1,19 @@
-// const express = require('express');
-// const app = express();
-const dotenv = require('dotenv');
-
-dotenv.config();
+const express = require('express');
+const router = express.Router();
 
 const { connectToSheets } = require('../sheets/connection');
 const { sendMessage } = require('../telegram/sendMessage');
 const { addExpense } = require('../sheets/addExpense');
 
-// app.use(express.json());
-
 const gs = connectToSheets();
 
-module.export = async (req, res) => {
+router.get('/', (req, res) => {
+    res.json({
+        message: "Hello world!"
+    })
+});
+
+router.post('/', async (req, res) => {
     let text = "";
 
     if (req.body.hasOwnProperty('message')) {
@@ -43,4 +44,6 @@ module.export = async (req, res) => {
 
     await addExpense(gs, item, value, type);
     res.send('ok');
-}
+})
+
+module.exports = router;
