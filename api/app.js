@@ -24,7 +24,6 @@ app.use(express.json());
 const gs = connectToSheets();
 
 app.post(`/${process.env.BOT_TOKEN}`, async (req, res) => {
-    console.log("Here");
     let text = "";
 
     if (req.body.hasOwnProperty('message')) {
