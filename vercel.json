@@ -1,7 +1,7 @@
 {
     "rewrites": [
         {
-            "source": "/5338246037",
+            "source": "/(.*)",
             "destination": "/"
         }
     ]
