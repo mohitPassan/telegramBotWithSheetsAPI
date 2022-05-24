@@ -19,7 +19,7 @@ const botRouter = require('./_botRouter');
 // 4. Update the value
 // 5. Also, add formulas in the requests below
 
-app.use(`/${process.env.BOT_TOKEN}`, botRouter);
+app.use(`api/${process.env.BOT_TOKEN}`, botRouter);
 
 // Iteration 2:
 // Starting the process using a bot command and then taking the input from the user one by one
@@ -49,12 +49,12 @@ app.use(`/${process.env.BOT_TOKEN}`, botRouter);
 //     }
 // })
 
-// app.get('*', (req, res) => {
-//     res.send({
-//         message: 'Welcome to the expense tracker bot',
-//         route: req.url
-//     });
-// })
+app.get('*', (req, res) => {
+    res.send({
+        message: 'Welcome to the expense tracker bot',
+        route: req.url
+    });
+})
 
 const port = 8080;
 app.listen(port, () => {
