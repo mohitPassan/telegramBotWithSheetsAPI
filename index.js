@@ -6,7 +6,7 @@ dotenv.config();
 
 app.use(express.json());
 
-const botRouter = require('./api/botRouter');
+const botRouter = require('./routes/botRouter');
 
 
 // Iteration 1:
