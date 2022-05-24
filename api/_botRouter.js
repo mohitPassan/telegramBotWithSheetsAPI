@@ -21,28 +21,54 @@ router.post('/', async (req, res) => {
     } else if (req.body.hasOwnProperty('edited_message')) {
         text = req.body.edited_message.text;
     } else {
-        sendMessage("I'm sorry, I didn't understand that.");
+        try {
+            await sendMessage("I'm sorry, I didn't understand that.");
+        }
+        catch (err) {
+            console.log("Error sending message: ", err);
+        }
         return res.sendStatus(200);
     }
 
     const [item, value, type] = text.split('\n');
 
     if (!item || !value || !type) {
-        sendMessage("There was some error. Please try again.\n\nThe format should be: \nItem\n(+/-)value\n(Exp/Inv/Cr/Sal/Bill)")
+        try {
+            await sendMessage("There was some error. Please try again.\n\nThe format should be: \nItem\n(+/-)value\n(Exp/Inv/Cr/Sal/Bill)")
+        }
+        catch (err) {
+            console.log("Error sending message: ", err);
+        }
         return res.sendStatus(200);
     }
 
     if (value[0] !== '+' && value[0] !== '-') {
-        sendMessage("Value should start with + or -");
+        try {
+            await sendMessage("Value should start with + or -");
+        }
+        catch (err) {
+            console.log("Error sending message: ", err);
+        }
         return res.sendStatus(200);
     }
 
     if (type !== 'Exp' && type !== 'Inv' && type !== 'Cr' && type !== 'Sal' && type !== 'Bill') {
-        sendMessage("Type should be Exp, Inv, Cr, Sal or Bill");
+        try {
+            await sendMessage("Type should be Exp, Inv, Cr, Sal or Bill");
+        }
+        catch (err) {
+            console.log("Error sending message: ", err);
+        }
         return res.sendStatus(200);
     }
 
-    await addExpense(gs, item, value, type);
+    try {
+        await addExpense(gs, item, value, type);
+    }
+    catch (err) {
+        console.log("Error adding expense: ", err);
+    }
+    
     res.send('ok');
 })
 
