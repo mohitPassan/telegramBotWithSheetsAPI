@@ -12,7 +12,7 @@ const { addExpense } = require('../sheets/addExpense');
 
 const gs = connectToSheets();
 
-module.export = async (req, res) => {
+module.exports = async (req, res) => {
     let text = "";
 
     if (req.body.hasOwnProperty('message')) {
