@@ -49,12 +49,12 @@ app.use(`/${process.env.BOT_TOKEN}`, botRouter);
 //     }
 // })
 
-app.get('*', (req, res) => {
-    res.send({
-        message: 'Welcome to the expense tracker bot',
-        route: req.url
-    });
-})
+// app.get('*', (req, res) => {
+//     res.send({
+//         message: 'Welcome to the expense tracker bot',
+//         route: req.url
+//     });
+// })
 
 const port = 8080;
 app.listen(port, () => {
