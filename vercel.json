@@ -1,0 +1,14 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/5338246037.js"
+        }
+    ],
+    "routes": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/5338246037.js"
+        }
+    ]
+}
