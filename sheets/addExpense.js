@@ -4,6 +4,7 @@ const moment = require('moment');
 const { sendMessage } = require("../telegram/sendMessage");
 const { ifSheetPresent } = require("./ifSheetPresent");
 const { addNewSheet } = require("./addNewSheet");
+const { getClosingBalance } = require("./getClosingBalance");
 
 const addExpense = async (gsapi, item, value, type) => {
     try {
@@ -36,9 +37,11 @@ const addExpense = async (gsapi, item, value, type) => {
             }
         }
     
-        await gsapi.spreadsheets.values.append(updateOptions);
+        const appendRes = await gsapi.spreadsheets.values.append(updateOptions);
+
+        const closingBalance = await getClosingBalance(gsapi, month, appendRes);
     
-        await sendMessage(`The following is saved to sheets:\n\nDate: ${date}\nItem: ${item}\nAmount: ${amount}\nType: ${finalType}\nDebit/Credit: ${debitOrCredit}`);
+        await sendMessage(`The following is saved to sheets:\n\nDate: ${date}\nItem: ${item}\nAmount: ${amount}\nType: ${finalType}\nDebit/Credit: ${debitOrCredit}\nClosing Balance: ${closingBalance}`);
     }
     catch (err) {
         console.log("Error adding expense: ", err);
