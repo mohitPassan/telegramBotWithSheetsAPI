@@ -92,7 +92,8 @@ router.post("/", async (req, res) => {
     try {
         await addExpense(gs, item, value, type);
     } catch (err) {
-        console.log("Error adding expense: ", err);
+        console.log(`Error adding expense\n${err}`);
+        await sendMessage(`There was an error while adding expense. Please contact the developer with the following error message\n\n${err}`);
     }
 
     res.send("ok");

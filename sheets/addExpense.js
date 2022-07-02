@@ -44,7 +44,7 @@ const addExpense = async (gsapi, item, value, type) => {
         await sendMessage(`The following is saved to sheets:\n\nDate: ${date}\nItem: ${item}\nAmount: ${amount}\nType: ${finalType}\nDebit/Credit: ${debitOrCredit}\nClosing Balance: ${closingBalance}`);
     }
     catch (err) {
-        console.log("Error adding expense: ", err);
+        throw new Error(`Error while adding expense\n${err}`);
     }
 }
 

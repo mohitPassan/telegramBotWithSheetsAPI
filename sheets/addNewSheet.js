@@ -1,5 +1,6 @@
 const { client } = require("./connection");
 const moment = require('moment');
+const { setInitialValue } = require("./setInitialValue");
 
 const addNewSheet = async (gsapi, month) => {
     try {
@@ -20,6 +21,8 @@ const addNewSheet = async (gsapi, month) => {
             },
             auth: client
         });
+
+        await setInitialValue(gsapi);
     }
     catch (err) {
         console.log("Error adding new sheet: ", err);
