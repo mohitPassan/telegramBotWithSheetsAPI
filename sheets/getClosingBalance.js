@@ -11,7 +11,7 @@ const getClosingBalance = async (gsapi, month, appendRes) => {
         return closingBalance.data.values[0][0];
     }
     catch(error) {
-        throw new Error(error);
+        throw new Error(`Error while getting closing balance\n${error}`);
     }
 
 }
