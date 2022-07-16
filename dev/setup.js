@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+const express = require('express');
 const axios = require("axios");
 const dotenv = require("dotenv");
 
@@ -29,3 +29,19 @@ const setup = async () => {
 };
 
 setup();
+
+const app = express();
+
+app.listen(3001, () => {
+    console.log("You can start development")
+});
+
+
+process.on("SIGINT", async function () {
+    const appURL = "https://telegram-bot-with-sheets-api.vercel.app";
+    await axios.get(
+        `https://api.telegram.org/bot${process.env.BOT_TOKEN}/setWebhook?url=${appURL}/api/${process.env.BOT_TOKEN}`
+    );
+    console.log("\nProduction webhook set. Exiting app.");
+    process.exit();
+});
