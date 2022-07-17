@@ -94,7 +94,14 @@ router.post("/", async (req, res) => {
     }
 
     if (type === "Sal") {
-        console.log("Putting salary");
+        try {
+            await fillSalary(gs, value);
+        } catch (err) {
+            console.log(`Error filling salary cell\n${err}`);
+            await sendMessage(
+                `There was an error while filling the salary cell. You'll have to fill that manually.\n\n If the issue persists please contact the developer with the following error message\n\n${err}`
+            );
+        }
     }
 
     try {
