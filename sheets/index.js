@@ -1,9 +1,22 @@
-export * from './addExpense';
-export * from './addNewSheet';
-export * from './connection';
-export * from './fillSalary';
-export * from './getAllSheets';
-export * from './getClosingBalance';
-export * from './getStatistics';
-export * from './ifSheetPresent';
-export * from './setInitialValue';
+const { addExpense } = require("./addExpense");
+const { addNewSheet } = require("./addNewSheet");
+const { connectToSheets, client } = require("./connection");
+const { fillSalary } = require("./fillSalary");
+const { getAllSheets } = require("./getAllSheets");
+const { getClosingBalance } = require("./getClosingBalance");
+const { getStatistics } = require("./getStatistics");
+const { ifSheetPresent } = require("./ifSheetPresent");
+const { setInitialValue } = require("./setInitialValue");
+
+module.exports = {
+    addExpense,
+    addNewSheet,
+    connectToSheets,
+    client,
+    fillSalary,
+    getAllSheets,
+    getClosingBalance,
+    getStatistics,
+    ifSheetPresent,
+    setInitialValue
+};
