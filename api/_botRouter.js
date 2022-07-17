@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const { connectToSheets } = require("../sheets/connection");
-const { sendMessage } = require("../telegram/sendMessage");
-const { addExpense } = require("../sheets/addExpense");
-const { getStatistics } = require("../sheets/getStatistics");
+const {
+    connectToSheets,
+    sendMessage,
+    addExpense,
+    getStatistics,
+    fillSalary,
+} = require("../sheets");
 
 const gs = connectToSheets();
 
@@ -41,10 +44,11 @@ router.post("/", async (req, res) => {
                 console.log("Error sending message: ", err);
             }
             return res.sendStatus(200);
-        }
-        else {
+        } else {
             try {
-                await sendMessage("Command not found. Please check for any spelling mistakes");
+                await sendMessage(
+                    "Command not found. Please check for any spelling mistakes"
+                );
             } catch (err) {
                 console.log("Error sending message: ", err);
             }
@@ -89,11 +93,24 @@ router.post("/", async (req, res) => {
         return res.sendStatus(200);
     }
 
+    if (type === "Sal") {
+        try {
+            await fillSalary(gs, value);
+        } catch (err) {
+            console.log(`Error filling salary cell\n${err}`);
+            await sendMessage(
+                `There was an error while filling the salary cell. You'll have to fill that manually.\n\n If the issue persists please contact the developer with the following error message\n\n${err}`
+            );
+        }
+    }
+
     try {
         await addExpense(gs, item, value, type);
     } catch (err) {
         console.log(`Error adding expense\n${err}`);
-        await sendMessage(`There was an error while adding expense. Please contact the developer with the following error message\n\n${err}`);
+        await sendMessage(
+            `There was an error while adding expense. Please contact the developer with the following error message\n\n${err}`
+        );
     }
 
     res.send("ok");
