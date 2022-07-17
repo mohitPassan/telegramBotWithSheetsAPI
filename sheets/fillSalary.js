@@ -1,15 +1,19 @@
+const moment = require('moment');
+
 const getSalary = async (gsapi) => {
+    const month = moment().format("MMMM");
     try {
         const res = await gsapi.spreadsheets.values.get({
             spreadsheetId: process.env.SPREADSHEET_ID,
             range: `${month}!I3`,
         });
 
-        const salaryFromSheet = res.data.values;
+        const values = res.data.values;
 
-        if (!salaryFromSheet) {
+        if (!values) {
             return 0;
         } else {
+            const salaryFromSheet = values[0][0];
             let numberPattern = /[-]{0,1}[\d]*[.]{0,1}[\d]+/g;
             const salaryNumber = salaryFromSheet.match(numberPattern).join("");
 
@@ -40,7 +44,7 @@ const setSalary = async (gsapi, finalSalary) => {
 const fillSalary = async (gsapi, salary) => {
     try {
         const initialSalary = await getSalary(gsapi);
-        const finalSalary = salary + initialSalary;
+        const finalSalary = parseInt(salary) + parseInt(initialSalary);
 
         await setSalary(gsapi, finalSalary);
     } catch (err) {
